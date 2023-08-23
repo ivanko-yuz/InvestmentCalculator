@@ -4,12 +4,15 @@ import { InvestmentCalculatorHeader } from "./InvestmentCalculatorHeader.jsx";
 import { InvestmentCalculatorResultTable } from "./InvestmentCalculatorResultTable.jsx";
 
 export const InvestmentCalculator = () => {
-  const [calculationResults, setCalculationResults] = useState([]);
+  const [calculationResults, setCalculationResults] = useState(null);
+  const [initialInvestments, setinitialInvestments] = useState(0);
 
   const calculateHandler = (userInput) => {
     const yearlyData = []; // per-year results
 
     let currentSavings = +userInput["current-savings"];
+    setinitialInvestments(currentSavings);
+
     const yearlyContribution = +userInput["yearly-contribution"];
     const expectedReturn = +userInput["expected-return"] / 100;
     const duration = +userInput["duration"];
@@ -24,7 +27,6 @@ export const InvestmentCalculator = () => {
         yearlyContribution: yearlyContribution,
       });
     }
-
     setCalculationResults(yearlyData);
   };
 
@@ -36,6 +38,7 @@ export const InvestmentCalculator = () => {
       {calculationResults && (
         <InvestmentCalculatorResultTable
           calculationResults={calculationResults}
+          initialInvestments={initialInvestments}
         />
       )}
       {!calculationResults && (

@@ -12,7 +12,7 @@ export const InvestmentCalculatorFrom = (props) => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    props.onCalculate(userInput)
+    props.onCalculate(userInput) 
   };
 
   const onResetHandler = () => {
