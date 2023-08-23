@@ -19,11 +19,11 @@ export const InvestmentCalculatorResultTable = (props) => {
           yearlyContribution,
         }) => (
            <tr>
-            <td>year</td>
-            <td>savingsEndOfYear</td>
-            <td>yearlyInterest</td>
-            <td>yearlyContribution</td>
-            <td>yearlyContribution</td>
+            <td>{year}</td>
+            <td>{savingsEndOfYear}</td>
+            <td>{yearlyInterest}</td>
+            <td>{yearlyContribution}</td>
+            <td>{yearlyContribution}</td>
         </tr>
         ))}
        

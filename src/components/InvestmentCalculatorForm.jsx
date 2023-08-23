@@ -1,65 +1,93 @@
+import { useState } from "react";
+
+const defaultUserInput = {
+  "current-savings": 10000,
+  "yearly-contribution": 100,
+  "expected-return": 5,
+  duration: 10,
+};
+
 export const InvestmentCalculatorFrom = (props) => {
-  const calculateHandler = (userInput) => {
-    const yearlyData = []; // per-year results
+  const [userInput, setUserInput] = useState(defaultUserInput);
 
-    let currentSavings = +userInput['current-savings']; 
-    const yearlyContribution = +userInput['yearly-contribution']; 
-    const expectedReturn = +userInput['expected-return'] / 100;
-    const duration = +userInput['duration'];
-
-    for (let i = 0; i < duration; i++) {
-      const yearlyInterest = currentSavings * expectedReturn;
-      currentSavings += yearlyInterest + yearlyContribution;
-      yearlyData.push({
-        year: i + 1,
-        yearlyInterest: yearlyInterest,
-        savingsEndOfYear: currentSavings,
-        yearlyContribution: yearlyContribution,
-      });
-    }
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    props.onCalculate(userInput)
   };
 
-  const onSubmitHandler = event => {
-    event.preventDefault();
-    calculateHandler(event.target);
-    console.log('Submit')
-  }
-
   const onResetHandler = () => {
-    console.log('Reset')
-  }
+    setUserInput(defaultUserInput);
+  };
 
-    return (
+  const onInputChangeHandler = (input, value) => {
+    setUserInput((prevInput) => {
+      return {
+        ...prevInput,
+        [input]: value,
+      };
+    });
+  };
+
+  return (
     <form className="form" onSubmit={onSubmitHandler}>
-    <div className="input-group">
-      <p>
-        <label htmlFor="current-savings">Current Savings ($)</label>
-        <input type="number" id="current-savings" />
+      <div className="input-group">
+        <p>
+          <label htmlFor="current-savings">Current Savings ($)</label>
+          <input
+            onChange={(event) =>
+              onInputChangeHandler("current-savings", event.target.value)
+            }
+            value={userInput["current-savings"]}
+            type="number"
+            id="current-savings"
+          />
+        </p>
+        <p>
+          <label htmlFor="yearly-contribution">Yearly Savings ($)</label>
+          <input
+            onChange={(event) =>
+              onInputChangeHandler("yearly-contribution", event.target.value)
+            }
+            value={userInput["yearly-contribution"]}
+            type="number"
+            id="yearly-contribution"
+          />
+        </p>
+      </div>
+      <div className="input-group">
+        <p>
+          <label htmlFor="expected-return">
+            Expected Interest (%, per year)
+          </label>
+          <input
+            onChange={(event) =>
+              onInputChangeHandler("expected-return", event.target.value)
+            }
+            value={userInput["expected-return"]}
+            type="number"
+            id="expected-return"
+          />
+        </p>
+        <p>
+          <label htmlFor="duration">Investment Duration (years)</label>
+          <input
+            onChange={(event) =>
+              onInputChangeHandler("duration", event.target.value)
+            }
+            value={userInput["duration"]}
+            type="number"
+            id="duration"
+          />
+        </p>
+      </div>
+      <p className="actions">
+        <button type="reset" className="buttonAlt" onClick={onResetHandler}>
+          Reset
+        </button>
+        <button type="submit" className="button">
+          Calculate
+        </button>
       </p>
-      <p>
-        <label htmlFor="yearly-contribution">Yearly Savings ($)</label>
-        <input type="number" id="yearly-contribution" />
-      </p>
-    </div>
-    <div className="input-group">
-      <p>
-        <label htmlFor="expected-return">
-          Expected Interest (%, per year)
-        </label>
-        <input type="number" id="expected-return" />
-      </p>
-      <p>
-        <label htmlFor="duration">Investment Duration (years)</label>
-        <input type="number" id="duration" />
-      </p>
-    </div>
-    <p className="actions">
-      <button type="reset" className="buttonAlt" onClieck={onResetHandler}>
-        Reset
-      </button>
-      <button type="submit" className="button" >
-        Calculate
-      </button>
-    </p>
-  </form>);
-}
+    </form>
+  );
+};
