@@ -1,3 +1,5 @@
+import classes from './InvestmentCalculatorResultTable.module.css'
+
 export const InvestmentCalculatorResultTable = (props) => {
   const calculateTotalInvestments = (
     savingsEndOfYear,
@@ -17,7 +19,7 @@ export const InvestmentCalculatorResultTable = (props) => {
     });
 
   return (
-    <table className="result">
+    <table className={classes.result}>
       <thead>
         <tr>
           <th>Year</th>

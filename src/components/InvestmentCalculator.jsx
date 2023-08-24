@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { InvestmentCalculatorFrom } from "./InvestmentCalculatorForm.jsx";
-import { InvestmentCalculatorHeader } from "./InvestmentCalculatorHeader.jsx";
-import { InvestmentCalculatorResultTable } from "./InvestmentCalculatorResultTable.jsx";
+import { InvestmentCalculatorFrom } from "./InvestmentCalculatorForm/InvestmentCalculatorForm.jsx";
+import { InvestmentCalculatorHeader } from "./InvestmentCalculatorHeader/InvestmentCalculatorHeader.jsx";
+import { InvestmentCalculatorResultTable } from "./InvestmentCalculatorResultTable/InvestmentCalculatorResultTable.jsx";
 
 export const InvestmentCalculator = () => {
   const [calculationResults, setCalculationResults] = useState(null);
@@ -42,9 +42,8 @@ export const InvestmentCalculator = () => {
         />
       )}
       {!calculationResults && (
-        <div className="header">
-          <h1>No dota to display</h1>
-        </div>
+          <p style={{textAlign: 'center'}}>No calculated data to display</p>
+
       )}
     </div>
   );
